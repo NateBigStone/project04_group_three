@@ -95,5 +95,3 @@ def search_restraunt(dishes_found):
         yelp_dish = input("You typed in an incorrect dish name, please try again: ").title()
 
     return yelp_dish
-
-main()
