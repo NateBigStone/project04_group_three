@@ -1,3 +1,6 @@
+from recipe import get_dish_info
+
+
 class Foods:
     def __init__(self):
         self.food = ''
@@ -7,3 +10,6 @@ class Foods:
 
     def get_food(self):
         return self.food
+
+    def get_recipe(self):
+        return get_dish_info(self.food)

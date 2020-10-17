@@ -16,7 +16,18 @@
             <input type="submit" value="Submit">
         </form>
         <br>
-        <p>{{food_response}}</p>
+        {% if food_response %}
+            {% for key, value in food_response.items() %}
+            <div class="recipe-container">
+                <h2>{{key}}</h2>
+                <ul>
+                {% for val in value %}
+                    <li>{{val}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
 </html>
