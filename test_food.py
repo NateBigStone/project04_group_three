@@ -6,7 +6,7 @@ from unittest.mock import patch
 class TestFoodApi(TestCase):
 
     def test_user_input(self):
-        self.assertTrue(food.get_dish().isalnum)
+        self.assertTrue(food.get_dish().isalpha)
 
     @patch('requests.get')
     def test_response(self, mock_requests_get):
