@@ -1,4 +1,4 @@
-from recipe import get_dish_info
+from food import get_dish_info
 
 
 class Foods:

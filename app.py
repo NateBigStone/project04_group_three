@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect
+import config
 from model import Foods
 
 app = Flask(__name__)
 
 food_query = Foods()
+app.config.from_object(config.Config)
 
 
 @app.route('/')

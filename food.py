@@ -1,8 +1,7 @@
 import requests
-import os
 import re
 import time
-import ast
+import os
 
 
 def main():
@@ -46,10 +45,10 @@ def get_dish_info(dish_input):
 
 
 def request_dishes(dish_input):
-    string = os.environ.get('headers')
-    headers = ast.literal_eval(string)
-    url = "https://rapidapi.p.rapidapi.com/search"
-    querystring = {"q" : dish_input}
+    key = os.environ.get('RECIPE_KEY')
+    headers = {'x-rapidapi-host': "edamam-recipe-search.p.rapidapi.com", 'x-rapidapi-key': key}
+    url = os.environ.get('RECIPE_URL')
+    querystring = {"q": dish_input}
 
     for i in range(3):
         try:
@@ -104,4 +103,5 @@ def search_restaurant(dishes_found):
     return yelp_dish
 
 
-main()
+if __name__=='__main__':
+    main()
