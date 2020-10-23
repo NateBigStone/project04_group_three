@@ -12,4 +12,4 @@ class Foods:
         return self.food
 
     def get_recipe(self):
-        return get_dish_info(self.food)
+        return get_dish_info(self.food) or None

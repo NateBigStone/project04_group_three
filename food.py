@@ -2,6 +2,9 @@ import requests
 import re
 import time
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
@@ -50,11 +53,15 @@ def request_dishes(dish_input):
     url = os.environ.get('RECIPE_URL')
     querystring = {"q": dish_input}
 
+    print(key)
+    print(url)
     for i in range(3):
         try:
             response = requests.request("GET", url, headers=headers, params=querystring)
+            print(response)
             if response.status_code != 200:
                 print("Unable to connect to API, retrying in 5 seconds.")
+                break
                 time.sleep(5)
                 if i == 2:
                     response = "error"
@@ -103,5 +110,5 @@ def search_restaurant(dishes_found):
     return yelp_dish
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()
