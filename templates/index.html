@@ -5,6 +5,8 @@
     <title>Group Three Foods</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -26,20 +28,20 @@
                         <li data-target="#myCarousel" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                    {% for key, value in food_response.items() %}
                     <!-- Wrapper for slides -->
-                        <div class="item active">
+                        {% for key, value in food_response.items() %}
+                        <div class="item{{' active' if loop.index==1 else ''}}">
+                            <div class="padding">
                         <h2>{{key}}</h2>
-                        <ul>
-                            {% for val in value %}
-                            <li>{{val}}</li>
-                            {% endfor %}
-                        </ul>
+                            <ul>
+                                {% for val in value %}
+                                <li>{{val}}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                    </div>
-
                     <!-- Left and right controls -->
                     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>

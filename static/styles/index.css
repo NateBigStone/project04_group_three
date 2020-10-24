@@ -7,5 +7,8 @@ body {
   text-align: center;
 }
 .recipe-container{
-  text-align: left;
+}
+.padding{
+    text-align: left;
+    padding: 20px 20px 20px 20px;
 }
