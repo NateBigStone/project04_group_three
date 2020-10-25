@@ -1,4 +1,5 @@
 from food import get_dish_info
+from yelp import api_request
 
 
 class Foods:
@@ -13,3 +14,6 @@ class Foods:
 
     def get_recipe(self):
         return get_dish_info(self.food) or None
+
+    def get_yelp(self):
+        return api_request(self.food) or None

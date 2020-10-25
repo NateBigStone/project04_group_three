@@ -6,9 +6,32 @@ body {
 .container {
   text-align: center;
 }
+.row {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
 .recipe-container{
+    width: 390px;
+    border-radius: 25px;
+    margin: 20px;
+    background-color: #ffffff;
+}
+.image-container{
+    text-align: center;
+    padding: 25px;
+    border-radius: 25px;
+    margin: 20px;
+    background-color: #ffffff;
+}
+.yelp-container{
+    text-align: center;
+    padding: 25px;
+    border-radius: 25px;
+    margin: 20px;
+    background-color: #ffffff;
 }
 .padding{
     text-align: left;
-    padding: 20px 20px 20px 20px;
+    padding: 25px 35px 25px 35px;
 }

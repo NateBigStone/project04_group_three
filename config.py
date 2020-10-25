@@ -9,3 +9,5 @@ class Config(object):
     IMAGE_URL = os.getenv('IMAGE_KEY')
     IMAGE_CONSTRUCT = os.getenv('IMAGE_CONSTRUCT')
     IMAGE_KEY = os.getenv('IMAGE_KEY')
+    YELP_URL = os.getenv('YELP_URL')
+    YELP_KEY = os.getenv('YELP_KEY')
