@@ -4,6 +4,7 @@ import logging
 
 api_key='<CHECK SLACK CHAT FOR THIS>'
 url = 'https://api.yelp.com/v3/businesses/search'
+log = logging.getLogger()
 
 
 # Makes request to the yelp API using the search_term as a parameter
@@ -18,11 +19,11 @@ def api_request(search_term):
     # Researched Try/Except functions for requests, information found at URL below:
     # https://stackoverflow.com/questions/16511337/correct-way-to-try-except-using-python-requests-module
     except requests.exceptions.Timeout:
-        log('Request Timed Out: ' + req)
+        log.warning('Request Timed Out: ' + req)
     except requests.exceptions.TooManyRedirects:
-        log('Redirect error- URL may be bad. Check URL, headers, params')
+        log.warning('Redirect error- URL may be bad. Check URL, headers, params')
     except requests.exceptions.RequestException as e:
-        log('Catastrophic error - exiting program')
+        log.critical('Catastrophic error - exiting program')
         raise SystemExit(e)
 
 
