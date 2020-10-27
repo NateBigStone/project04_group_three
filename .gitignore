@@ -1,0 +1,7 @@
+# Text Editors
+.idea
+.vscode
+# Environment
+.env
+env/
+__pycache__/
