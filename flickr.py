@@ -45,8 +45,8 @@ def getImage(item):
         farm =  first_response_photo['farm']
     
         fetch_photo_url = f'https://farm{farm}.staticflickr.com/{server}/{photo_id}_{secret}_m.jpg'
-        photo_response = requests.get(fetch_photo_url)
-        return photo_response
+        
+        return fetch_photo_url
     except Exception as e:
         logging.error(f'Something went wrong when calling the API: {e}')
 
@@ -62,3 +62,7 @@ def get_item():
             item = re.sub(' +', ' ', item)
             break
     return item
+
+if __name__ == "__main__":
+    main()
+
