@@ -2,7 +2,7 @@ import requests
 import os
 import re
 import time
-import ast
+from TEMP_recipe import temp_recipe
 
 
 def main():
@@ -37,7 +37,7 @@ def get_dish():
 
 def get_dish_info(dish_input):
     response = request_dishes(dish_input)
-    
+
     if response == "error":
         return response
     else:
@@ -46,31 +46,31 @@ def get_dish_info(dish_input):
 
 
 def request_dishes(dish_input):
-    string = os.environ.get('headers')
-    headers = ast.literal_eval(string)
-    url = "https://rapidapi.p.rapidapi.com/search"
-    querystring = {"q" : dish_input}
+    key = os.environ.get('RECIPE_KEY')
+    headers = {'x-rapidapi-host': "edamam-recipe-search.p.rapidapi.com", 'x-rapidapi-key': key}
+    url = os.environ.get('RECIPE_URL')
+    querystring = {"q": dish_input}
 
-    for i in range(3):
-        try:
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            if response.status_code != 200:
-                print("Unable to connect to API, retrying in 5 seconds.")
-                time.sleep(5)
-                if i == 2:
-                    response = "error"
-            else:
-                break
-        except requests.HTTPError:
-            print("Service is unavailable or your internet is down. Please try again later.")
+    #for i in range(3):
+    try:
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        if response.status_code != 200:
+            print("Unable to connect to API, retrying in 5 seconds.")
+            #time.sleep(5)
+            #if i == 2:
             response = "error"
-            break
-        except Exception:
-            print("An error has occurred, please contact our support center.")
-            response = "error"
-            break
+        # else:
+        #     break
+    except requests.HTTPError:
+        print("Service is unavailable or your internet is down. Please try again later.")
+        response = "error"
+        #break
+    except Exception:
+        print("An error has occurred, please contact our support center.")
+        response = "error"
+        #break
     if response == "error":
-        return response
+        return temp_recipe(dish_input)
     else:
         return response.json()
 
@@ -84,7 +84,7 @@ def convert_response(response):
         recipe_ingredients.append(items['recipe']['ingredientLines'])
 
     result_dict = {recipe_name[i]: recipe_ingredients[i] for i in range(len(recipe_name))}
-    
+
     return result_dict
 
 
@@ -97,11 +97,12 @@ def display_result(dishes_found):
 def search_restaurant(dishes_found):
     print("\n")
     yelp_dish = input("Please enter name of dish you'd like to search on yelp: ").title()
-    
+
     while yelp_dish not in dishes_found.keys():
         yelp_dish = input("You typed in an incorrect dish name, please try again: ").title()
 
     return yelp_dish
 
 
-main()
+if __name__ == '__main__':
+    main()
