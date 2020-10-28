@@ -21,11 +21,13 @@
         {% if food_response %}
         <div class="container">
             <div class="row">
+                {% if food_response[0] %}
                 <div class="col-md-3 image-container">
-                    <h2>Placeholder<br>for Image</h2>
+                    <h2><img src="{{food_response[0]}}"></h2>
                 </div>
+                {% endif %}
+                {% if food_response[1] %}
                 <div class="col-md-6 recipe-container">
-                    {% if food_response[0] %}
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -35,7 +37,7 @@
                         </ol>
                             <div class="carousel-inner">
                             <!-- Wrapper for slides -->
-                                {% for key, value in food_response[0].items() %}
+                                {% for key, value in food_response[1].items() %}
                                 <div class="item{{' active' if loop.index==1 else ''}}">
                                     <div class="padding">
                                         <h2>{{key}}</h2>
@@ -56,14 +58,14 @@
                         <div class="glyphicon glyphicon-chevron-right col"></div>
                     </a>
                     </div>
-                    {% endif %}
                 </div>
+                {% endif %}
+                {% if food_response[2] %}
                 <div class="col-md-3 yelp-container">
-                    {% if food_response[1] %}
                     <h3>Top Restaurant:</h3>
-                    <h2>{{food_response[1]}}</h2>
-                    {% endif %}
+                    <h2>{{food_response[2]}}</h2>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endif %}

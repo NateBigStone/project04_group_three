@@ -1,5 +1,6 @@
 from food import get_dish_info
 from yelp import api_request
+from flickr import get_image
 
 
 class Foods:
@@ -11,6 +12,9 @@ class Foods:
 
     def get_food(self):
         return self.food
+
+    def get_image(self):
+        return get_image(self.food) or None
 
     def get_recipe(self):
         return get_dish_info(self.food) or None
