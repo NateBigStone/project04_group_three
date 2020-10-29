@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if food_response %}
+<div class="container">
+    <div class="row">
+        {% if food_response[0] %}
+        <div class="col-md-3 image-container">
+            <h2><img src="{{food_response[0]}}"></h2>
+        </div>
+        {% endif %}
+        {% if food_response[1] %}
+        <div class="col-md-6 recipe-container">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <!-- Wrapper for slides -->
+                    {% for key, value in food_response[1].items() %}
+                    <div class="item{{' active' if loop.index==1 else ''}}">
+                        <div class="padding">
+                            <h2>{{key}}</h2>
+                            <ul>
+                                {% for val in value %}
+                                <li>{{val}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Left and right controls -->
+                <a class="carousel-control" href="#myCarousel" data-slide="prev" style="width:30px;">
+                    <div class="glyphicon glyphicon-chevron-left col"></div>
+                </a>
+                <a class="carousel-control" href="#myCarousel" data-slide="next" style="width:30px; margin-left:328px;">
+                    <div class="glyphicon glyphicon-chevron-right col"></div>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% if food_response[2] %}
+        <div class="col-md-3 yelp-container">
+            <h3>Top Restaurant:</h3>
+            <h2>{{food_response[2]}}</h2>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
