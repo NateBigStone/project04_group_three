@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Group Three Foods</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <img src="{{ url_for('static',filename='assets/group_three3.PNG') }}">
+    <hr>
+    <form action="/item" method="POST">
+        <label for="food">Enter a Dish:</label>
+        <input type="text" id="food" name="food">
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
