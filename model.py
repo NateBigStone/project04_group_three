@@ -11,7 +11,8 @@ class Foods:
         self.food = food
 
     def get_food(self):
-        return self.food
+        if self.food:
+            return self.food
 
     def get_image(self):
         return get_image(self.food) or None

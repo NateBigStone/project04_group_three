@@ -10,8 +10,9 @@
 </head>
 <body>
 <div class="container">
-    <img src="{{ url_for('static',filename='assets/group_three3.PNG') }}">
+    <a href="/"><img src="{{ url_for('static',filename='assets/group_three3.PNG') }}"></a>
     <hr>
+    <br>
     <form action="/item" method="POST">
         <label for="food">Enter a Dish:</label>
         <input type="text" id="food" name="food">
