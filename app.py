@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import config
 from model import Foods
 import logging
+import json
 
 app = Flask(__name__)
 
@@ -29,9 +30,10 @@ def item_endpoint():
         try:
             image = food_query.get_image()
             recipe = food_query.get_recipe()
+            recipe_dict = json.loads(recipe)
             yelp = food_query.get_yelp()
             if image or recipe or yelp:
-                return render_template('search.html', food_response=[image, recipe, yelp])
+                return render_template('search.html', food_response=[image, recipe_dict, yelp])
             else:
                 raise Exception
         except Exception as e:
