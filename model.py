@@ -33,7 +33,7 @@ class Foods:
         return self.recipe
 
     def get_yelp(self):
-        self.restuarant = api_request(self.food) or None
+        self.restaurant = api_request(self.food) or None
         return self.restaurant
 
     def save_food(self):
