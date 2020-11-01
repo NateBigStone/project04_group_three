@@ -2,7 +2,7 @@ import requests
 import logging
 import os
 import re
-
+import shelve
 
 def main():
     item = get_item()
@@ -26,9 +26,16 @@ def get_image(item):
     }
     # Search flickr for pictures
     try:
-        flickr_response = requests.get(flicker_search_url, params=params)
-        # get json back
-        flickr_response_json = flickr_response.json()
+        flickr_response = check_cache(item)
+        
+        if flickr_response != None:
+            print("Item found in cache.\n")
+            flickr_response_json = flickr_response.json()
+        else:
+            flickr_response = requests.get(flicker_search_url, params=params)
+            add_cache(item, flickr_response)
+            # get json back
+            flickr_response_json = flickr_response.json()
     except Exception as e:
         logging.error(f'Something went wrong when calling the API: {e}')
         return None
@@ -54,6 +61,18 @@ def get_image(item):
         logging.error(f'Something went wrong when calling the API: {e}')
 
     return None
+
+
+def check_cache(item):
+    s = shelve.open("flickr_cache")
+
+    item_found = s.get(item)
+    s.close()
+    return item_found
+
+def add_cache(item, flickr_response):
+    s = shelve.open("flickr_cache")
+    s[item] = flickr_response
 
   
 def get_item():
