@@ -1,21 +1,25 @@
 import sqlite3
 import logging
-from model import Foods
 
 db = 'food_db.sqlite'
+
 
 def create_table():
     with sqlite3.connect(db) as conn:
         conn.execute('CREATE TABLE IF NOT EXISTS records(restaurant TEXT, recipe TEXT, flickr TEXT)')
     conn.close()
 
+
 def add_data(yelp_response, edamam_response, flickr_response):
     try:
         with sqlite3.connect(db) as conn:
-            conn.execute('INSERT INTO records (restaurant, recipe, flickr) VALUES (?, ?, ?)', (yelp_response, edamam_response, flickr_response))
+            conn.execute('INSERT INTO records (restaurant, recipe, flickr) VALUES (?, ?, ?)', (yelp_response,
+                                                                                               edamam_response,
+                                                                                               flickr_response))
     except Exception as e:
-        logging.error('Error ' + e + ' inserting ' + yelp_response)
+        logging.error(f'Error {str(e)} inserting {yelp_response}')
     conn.close()
+
 
 def delete_record(restaurant, recipe, flickr):
     try:
@@ -25,15 +29,12 @@ def delete_record(restaurant, recipe, flickr):
         logging.error('Error ' + e + ' deleting ' + restaurant)
     conn.close()
 
+
 def return_all():
     results_list = []
     with sqlite3.connect(db) as conn:
         results = conn.execute('SELECT * FROM records')
         for row in results:
-            results_list.append( Foods(row[0], row[1], row[2]))
+            results_list.append(row)
     conn.close()
     return results_list
-
-
-
-
