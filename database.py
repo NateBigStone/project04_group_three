@@ -9,12 +9,11 @@ def create_table():
     conn.close()
 
 def add_data(yelp_response, edamam_response, flickr_response):
-    bookmarked = 0
     try:
         with sqlite3.connect(db) as conn:
-            conn.execute('INSERT INTO records (restaurant, recipe, flickr, bookmarked) VALUES (?, ?, ?)', (yelp_response, edamam_response, flickr_response))
+            conn.execute('INSERT INTO records (restaurant, recipe, flickr) VALUES (?, ?, ?)', (yelp_response, edamam_response, flickr_response))
     except Exception as e:
-        logging.error('Error ' + e + ' insrting ' + yelp_response)
+        logging.error('Error ' + e + ' inserting ' + yelp_response)
     conn.close()
 
 def delete_record(restaurant, recipe, flickr):
