@@ -15,7 +15,7 @@ def get_image(item):
     # Get flickr key
     key = os.environ.get('IMAGE_KEY')
     # Search for pictures, modify to search for whatever tag you want
-    flicker_search_url = 'https://api.flickr.com/services/rest/'
+    flicker_search_url = os.environ.get('IMAGE_SEARCH')
     params = {
         'method': 'flickr.photos.search',
         'api_key': key,
