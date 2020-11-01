@@ -1,8 +1,8 @@
 import requests
 import os
 import re
-# import time
-from TEMP_recipe import temp_recipe
+import time
+import shelve
 
 
 def main():
@@ -46,33 +46,54 @@ def get_dish_info(dish_input):
 
 
 def request_dishes(dish_input):
+    cached_response = check_cache(dish_input)
+    
+    if cached_response != None:
+        print("Item found in cache")
+        return cached_response.json()
+    
     key = os.environ.get('RECIPE_KEY')
     headers = {'x-rapidapi-host': "edamam-recipe-search.p.rapidapi.com", 'x-rapidapi-key': key}
     url = os.environ.get('RECIPE_URL')
     querystring = {"q": dish_input}
 
-    #for i in range(3):
-    try:
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        if response.status_code != 200:
-            print("Unable to connect to API, retrying in 5 seconds.")
-            #time.sleep(5)
-            #if i == 2:
+    for i in range(3):
+        try:
+            response = requests.request("GET", url, headers=headers, params=querystring)
+            if response.status_code != 200:
+                print("Unable to connect to API, retrying in 5 seconds.")
+                time.sleep(5)
+                if i == 2:
+                    response = "error"
+            else:
+                break
+        except requests.HTTPError:
+            print("Service is unavailable or your internet is down. Please try again later.")
             response = "error"
-        # else:
-        #     break
-    except requests.HTTPError:
-        print("Service is unavailable or your internet is down. Please try again later.")
-        response = "error"
-        #break
-    except Exception:
-        print("An error has occurred, please contact our support center.")
-        response = "error"
-        #break
+            break
+        except Exception:
+            print("An error has occurred, please contact our support center.")
+            response = "error"
+            break
     if response == "error":
-        return temp_recipe(dish_input)
+        print("We were unable to contact the API, sorry.")
+        return response
     else:
+        add_cache(dish_input, response)
         return response.json()
+    
+    
+def check_cache(dish_input):
+    s = shelve.open("food_cache")
+
+    item_found = s.get(dish_input)
+    s.close()
+    return item_found
+
+
+def add_cache(dish_input, response):
+    s = shelve.open("food_cache")
+    s[dish_input] = response
 
 
 def convert_response(response):
