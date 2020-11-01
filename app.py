@@ -3,6 +3,7 @@ import config
 from model import Foods
 import logging
 import json
+from database import create_table
 
 app = Flask(__name__)
 
@@ -12,6 +13,7 @@ app.config.from_object(config.Config)
 
 @app.route('/')
 def home_page():
+    create_table()
     return render_template('search.html')
 
 
@@ -30,6 +32,7 @@ def item_endpoint():
         try:
             image = food_query.get_image()
             recipe = food_query.get_recipe()
+            #json.loads(recipe) turns recipe string back to dictionary recipe_dict
             recipe_dict = json.loads(recipe)
             yelp = food_query.get_yelp()
             if image or recipe or yelp:

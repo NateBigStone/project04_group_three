@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+from model import Foods
 
 db = 'food_db.sqlite'
 
@@ -25,10 +26,13 @@ def delete_record(restaurant, recipe, flickr):
     conn.close()
 
 def return_all():
+    results_list = []
     with sqlite3.connect(db) as conn:
         results = conn.execute('SELECT * FROM records')
+        for row in results:
+            results_list.append( Foods(row[0], row[1], row[2]))
     conn.close()
-    return results
+    return results_list
 
 
 
