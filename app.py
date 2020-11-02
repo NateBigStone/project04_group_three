@@ -9,12 +9,15 @@ app = Flask(__name__)
 
 food_query = Foods()
 app.config.from_object(config.Config)
+create_table()
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home_page():
-    create_table()
-    return render_template('search.html')
+    if request.method == 'POST':
+        food_query.save_bookmark()
+    bookmarks = food_query.get_all_food()
+    return render_template('search.html', bookmarks=bookmarks)
 
 
 @app.route('/item', methods=["GET", "POST"])
@@ -42,6 +45,15 @@ def item_endpoint():
         except Exception as e:
             logging.warning(e)
             return render_template('search.html', error=True, error_text='API error.')
+
+
+@app.route('/delete', methods=["POST"])
+def delete():
+    image = request.args.get('image', default=None)
+    recipe = request.args.get('recipe', default=None)
+    yelp = request.args.get('yelp', default=None)
+    food_query.delete_food(yelp, recipe, image)
+    return redirect('/')
 
 
 def valid_food(food_string):

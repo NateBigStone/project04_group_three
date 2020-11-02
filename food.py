@@ -46,7 +46,7 @@ def get_dish_info(dish_input):
     
     #If error has occured, return "error" instead of converting/displaying.
     if response == "error":
-        return response
+        return None
     else:
         dishes_found = convert_response(response)
         return dishes_found

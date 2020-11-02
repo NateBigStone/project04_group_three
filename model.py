@@ -15,7 +15,6 @@ class Foods:
 
     def add_food(self, food):
         self.food = food
-        add_data(self.restaurant, self.recipe, self.image)
 
     def get_food(self):
         if self.food:
@@ -39,11 +38,14 @@ class Foods:
         self.restaurant = api_request(self.food) or None
         return self.restaurant
 
+    def save_bookmark(self):
+        add_data(self.restaurant, self.recipe, self.image)
+
     def get_all_food(self):
         # returns a list of "Foods" objects. For each entry, [0] = restaurant, [1] = recipe, [2] = flickr url
         results = return_all()
         return results
 
-    def delete_food(self):
+    def delete_food(self, restaurant, recipe, image):
         # removes the selected Food object from the database
-        delete_record(self.restaurant, self.recipe, self.image)
+        delete_record(restaurant, recipe, image)
