@@ -47,6 +47,15 @@ def item_endpoint():
             return render_template('search.html', error=True, error_text='API error.')
 
 
+@app.route('/delete', methods=["POST"])
+def delete():
+    image = request.args.get('image', default=None)
+    recipe = request.args.get('recipe', default=None)
+    yelp = request.args.get('yelp', default=None)
+    food_query.delete_food(yelp, recipe, image)
+    return redirect('/')
+
+
 def valid_food(food_string):
     if food_string.isalpha():
         return True

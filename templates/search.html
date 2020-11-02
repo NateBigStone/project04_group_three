@@ -22,7 +22,9 @@
         {{ bookmark[0][:8] }}...
     {% endif %}
 </a>
-        <a href="/" class="btn btn-default">Delete</a>
+<form action="/delete?image={{ bookmark[2] }}&recipe={{ bookmark[1] }}&yelp={{ bookmark[0] }}" method="POST">
+    <button type="submit" class="btn btn-default">Delete</button>
+</form>
 </p>
         {% endif %}
     {% endfor %}

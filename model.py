@@ -46,6 +46,6 @@ class Foods:
         results = return_all()
         return results
 
-    def delete_food(self):
+    def delete_food(self, restaurant, recipe, image):
         # removes the selected Food object from the database
-        delete_record(self.restaurant, self.recipe, self.image)
+        delete_record(restaurant, recipe, image)

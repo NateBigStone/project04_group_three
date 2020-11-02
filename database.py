@@ -24,9 +24,10 @@ def add_data(yelp_response, edamam_response, flickr_response):
 def delete_record(restaurant, recipe, flickr):
     try:
         with sqlite3.connect(db) as conn:
-            conn.execute('DELETE from records WHERE name = ? AND recipe = ? AND flickr = ?', (restaurant, recipe, flickr))
+            conn.execute('DELETE from records WHERE restaurant = ? AND recipe = ? AND flickr = ?', (restaurant, recipe, flickr))
+            print('Deleted?')
     except Exception as e:
-        logging.error('Error ' + e + ' deleting ' + restaurant)
+        logging.error('Error ' + str(e) + ' deleting ' + restaurant)
     conn.close()
 
 
