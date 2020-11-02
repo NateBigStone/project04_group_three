@@ -9,12 +9,16 @@ app = Flask(__name__)
 
 food_query = Foods()
 app.config.from_object(config.Config)
+create_table()
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home_page():
-    create_table()
-    return render_template('search.html')
+    if request.method == 'POST':
+        food_query.save_bookmark()
+    bookmarks = food_query.get_all_food()
+    print(bookmarks)
+    return render_template('search.html', bookmarks=bookmarks)
 
 
 @app.route('/item', methods=["GET", "POST"])

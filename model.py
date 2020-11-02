@@ -13,10 +13,6 @@ class Foods:
         self.recipe = None
         self.restaurant = None
 
-    def add_food(self, food):
-        self.food = food
-        add_data(self.restaurant, self.recipe, self.image)
-
     def get_food(self):
         if self.food:
             return self.food
@@ -38,6 +34,9 @@ class Foods:
     def get_yelp(self):
         self.restaurant = api_request(self.food) or None
         return self.restaurant
+
+    def save_bookmark(self):
+        add_data(self.restaurant, self.recipe, self.image)
 
     def get_all_food(self):
         # returns a list of "Foods" objects. For each entry, [0] = restaurant, [1] = recipe, [2] = flickr url

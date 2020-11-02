@@ -39,7 +39,7 @@ def get_dish_info(dish_input):
     response = request_dishes(dish_input)
 
     if response == "error":
-        return response
+        return None
     else:
         dishes_found = convert_response(response)
         return dishes_found

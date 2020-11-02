@@ -7,6 +7,9 @@
     <strong>Warning!</strong> {{ error_text }}
 </div>
 {% endif %}
+{% if bookmarks %}
+{{ bookmarks }}
+{% endif %}
 {% if food_response %}
 <div class="container">
     <div class="row">
@@ -56,6 +59,13 @@
         </div>
         {% endif %}
     </div>
+</div>
+<div class="btn-group">
+    <form action="/" method="POST">
+        <button type="submit" class="btn btn-primary active">
+            <i class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></i> Save to Bookmarks</button>
+    </form>
+<!--    <a href="/cancel/1" class="btn btn-default">Cancel</a>-->
 </div>
 {% endif %}
 {% endblock %}

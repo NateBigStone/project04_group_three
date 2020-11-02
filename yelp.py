@@ -37,16 +37,16 @@ def api_request(search_term):
 def check_cache(search_term):
     s = shelve.open("yelp_cache")
 
-    user_input = input("Would you like to clear cached items?")
-    while True:
-        if user_input == "Y" or user_input == "y":
-            s.close()
-            s = shelve.open("yelp_cache", flag='n')
-            break
-        elif user_input == "N" or user_input == "n":
-            break
-        else:
-            user_input = input("Sorry I didn't get that, would you like to clear items from your cache?")
+    # user_input = input("Would you like to clear cached items?")
+    # while True:
+    #     if user_input == "Y" or user_input == "y":
+    #         s.close()
+    #         s = shelve.open("yelp_cache", flag='n')
+    #         break
+    #     elif user_input == "N" or user_input == "n":
+    #         break
+    #     else:
+    #         user_input = input("Sorry I didn't get that, would you like to clear items from your cache?")
 
     item_found = s.get(search_term)
     s.close()
