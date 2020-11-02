@@ -9,7 +9,7 @@ import shelve
 def api_request(search_term):
     cached_response = check_cache(search_term)
     
-    if cached_response != None:
+    if cached_response is not None:
         print("Item found in cache.\n")
         return cached_response
     
@@ -50,7 +50,11 @@ def check_cache(search_term):
 
     item_found = s.get(search_term)
     s.close()
-    return item_found
+    if item_found:
+        result = get_business_name(item_found)
+        return result
+    else:
+        return item_found
 
 
 def add_cache(search_term, data):
