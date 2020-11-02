@@ -13,6 +13,9 @@ class Foods:
         self.recipe = None
         self.restaurant = None
 
+    def add_food(self, food):
+        self.food = food
+
     def get_food(self):
         if self.food:
             return self.food

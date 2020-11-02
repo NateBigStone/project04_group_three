@@ -17,7 +17,6 @@ def home_page():
     if request.method == 'POST':
         food_query.save_bookmark()
     bookmarks = food_query.get_all_food()
-    print(bookmarks)
     return render_template('search.html', bookmarks=bookmarks)
 
 
