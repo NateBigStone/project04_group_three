@@ -1,15 +1,11 @@
 import unittest
 from unittest import TestCase
 from database import db, logging
+import sqlite3
 
 
 
-
-
-
-
-
-
+# class for testing the database
 class TestRecordsDB(TestCase):
     test_db_url = 'test_food.db'
 
@@ -32,25 +28,25 @@ class TestRecordsDB(TestCase):
         con.close()
 
         self.db = database.db
-
+    #testing new added food
     def test_add_new_food(self):
         restaurant_Name = 'Tawakal'
         recipe_Name = 'Tacos'
-        flickr_Name = 'Tacos'
+        flickr_Name = 'Tacos Photo'
        
         database.add_data(restaurant_Name, recipe_Name, flickr_Name,)
-        expected = {'Tawakal', 'Tacos', 'Tacos', }
+        expected = {'Tawakal', 'Tacos', 'Tacos Photo', }
         self.compare_db_to_expected(expected)    
     
-
+    # testing for food already in database
     def test_food_already_in_data(self):
         restaurant_Name = 'Tawakal'
         recipe_Name = 'Tacos'
-        flickr_Name = 'Tacos'
+        flickr_Name = 'Tacos Photo'
        
         database.add_data(restaurant_Name, recipe_Name, flickr_Name,)
-        expected = {'Tawakal', 'Tacos', 'Tacos', }
-        with self.assertRaises(er):
+        expected = {'Tawakal', 'Tacos', 'Tacos Photo', }
+        with self.assertRaises(error):
             #database.add_data(restaurant_Name, recipe_Name, flickr_Name,)
             self.compare_db_to_expected(expected)    
 
@@ -60,13 +56,12 @@ class TestRecordsDB(TestCase):
         all_data = conn.execute('SELECT * FROM records').fetchall()
 
       
-        #self.assertEqual(len(expected.update()), len(all_data))
+       
 
         for row in all_data:
             
             print(row)
-            #self.assertIn(row[0], expected.update())
-            #self.assertEqual(expected[row[0]], row[1])
+           
 
         conn.close()
 
