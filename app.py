@@ -35,7 +35,6 @@ def item_endpoint():
         try:
             image = food_query.get_image()
             recipe = food_query.get_recipe()
-            #json.loads(recipe) turns recipe string back to dictionary recipe_dict
             recipe_dict = json.loads(recipe)
             yelp = food_query.get_yelp()
             if image or recipe or yelp:
@@ -54,6 +53,23 @@ def delete():
     yelp = request.args.get('yelp', default=None)
     food_query.delete_food(yelp, recipe, image)
     return redirect('/')
+
+
+@app.route('/bookmarked_item')
+def bookmark_endpoint():
+    try:
+        image = request.args.get('image', default=None)
+        recipe = request.args.get('recipe', default=None)
+        yelp = request.args.get('yelp', default=None)
+        # json.loads(recipe) turns recipe string back to dictionary recipe_dict
+        recipe_dict = json.loads(recipe)
+        if image or recipe or yelp:
+            return render_template('search.html', food_response=[image, recipe_dict, yelp])
+        else:
+            raise Exception
+    except Exception as e:
+        logging.warning(e)
+        return render_template('search.html', error=True, error_text='Bookmarks error.')
 
 
 def valid_food(food_string):

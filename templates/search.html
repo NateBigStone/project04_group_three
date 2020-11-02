@@ -4,14 +4,14 @@
 {% if error %}
 <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Warning!</strong> {{ error_text }}
+    <strong>Warning!</strong> {{ error_text }} <a href="/">Home</a>
 </div>
 {% endif %}
 {% if bookmarks %}
 <h2>Favorites:</h2>
     {% for bookmark in bookmarks %}
         {% if bookmark[0] or bookmark[1] or bookmark[2] %}
-<p><a>
+<p><a href="/bookmarked_item?image={{ bookmark[2] }}&recipe={{ bookmark[1] }}&yelp={{ bookmark[0] }}">
     {% if bookmark[2] != None %}
         <img src="{{ bookmark[2] }}" height="28">
     {% endif %}
