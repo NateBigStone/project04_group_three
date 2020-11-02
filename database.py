@@ -6,7 +6,7 @@ db = 'food_db.sqlite'
 
 def create_table():
     with sqlite3.connect(db) as conn:
-        conn.execute('CREATE TABLE IF NOT EXISTS records(restaurant TEXT, recipe TEXT, flickr TEXT)')
+        conn.execute('CREATE TABLE IF NOT EXISTS records(restaurant TEXT, recipe TEXT UNIQUE, flickr TEXT)')
     conn.close()
 
 
